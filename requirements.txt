@@ -1,0 +1,5 @@
+packaging==20.9
+ssh_wait==1.0.1
+requests==2.20.0
+docker_py==1.10.6
+rich==10.1.0
