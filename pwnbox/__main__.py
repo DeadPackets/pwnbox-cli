@@ -15,7 +15,7 @@ from rich.progress import BarColumn, Progress
 from ssh_wait import ssh_wait
 
 # Global Vars
-VERSION = '1.0.0'
+VERSION = "1.0.0"
 console = Console()
 
 # Bytes to Human Readable
@@ -45,7 +45,7 @@ def main():
 	# Main arguments
 	parser.add_argument('command', metavar='COMMAND', help='The action to perform.', choices=['up', 'down', 'pull', 'generate'])
 	parser.add_argument('-v', '--verbose', help='Enable verbose output.', action='store_true')
-	parser.add_argument('--version', help='Print the current version of the program.', action='version', version=f'v{VERSION}')
+	parser.add_argument('--version', help='Print the current version of the program.', action='version', version=f'v{VERSION}')	
 	parser.add_argument('-b', '--no-banner', help='Disable printing the banner.', action='store_true')
 	parser.add_argument('-n', '--no-update', help='Disable the automatic check for newer PwnBox versions.', action='store_true')
 	parser.add_argument('-c', '--config', help='Specify the path to a PwnBox config file.', default=f"{os.getenv('HOME')}/.pwnbox/pwnbox.conf")
@@ -239,6 +239,12 @@ def main():
 		# Check if the container is running
 		try:
 			pwnbox_container = client.containers.get(config['CONTAINER']['NAME'])
+			with console.status('[cyan]=> Disabling X11 remote access...[/cyan]'):
+				if (platform == 'linux' or platform == 'linux2'):
+					os.system('xhost -local:root >/dev/null 2>/dev/null')
+				else:
+					os.system('xhost -localhost >/dev/null 2>/dev/null')
+			print('[blue]=> Disabled X11 remote access.[/blue]')
 			verbose_print(f'[cyan]=> Bringing down container with ID: {pwnbox_container.short_id}[/cyan]')
 			print('[blue]=> Stopping PwnBox container...[/blue]')
 			pwnbox_container.kill()
