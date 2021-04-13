@@ -17,22 +17,22 @@ from ssh_wait import ssh_wait
 
 # Global Vars
 VERSION = "v1.1.2"
-DEFAULT_CONFIG_CREATED = False
 console = Console()
 
 # Bytes to Human Readable
 def byte_to_human_read(byte):
-    if byte == 0:
-        raise ValueError("Size is not valid.")
-    byte = int(byte)
-    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
-    index = int(math.floor(math.log(byte, 1024)))
-    power = math.pow(1024, index)
-    size = round(byte / power, 2)
-    return "{} {}".format(size, size_name[index])
+	if byte == 0:
+		raise ValueError("Size is not valid.")
+	byte = int(byte)
+	size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+	index = int(math.floor(math.log(byte, 1024)))
+	power = math.pow(1024, index)
+	size = round(byte / power, 2)
+	return "{} {}".format(size, size_name[index])
 
 # Main function
 def main():
+	DEFAULT_CONFIG_CREATED = False
 	# Initialize ArgParser
 	class NoAction(argparse.Action):
 		def __init__(self, **kwargs):
@@ -80,7 +80,7 @@ def main():
 	"""
 		print(f'[red]{banner}[/red]')
 		# Fancy small calculation to center the subtitle
-		subtitle = f'[cyan]v{VERSION}[/cyan] - Made by @DeadPackets'
+		subtitle = f'[cyan]{VERSION}[/cyan] - Made by @DeadPackets'
 		padding = len(banner.split('\n')[1])
 		print(f'[blue]{subtitle.center(padding)}[/blue]\n')
 

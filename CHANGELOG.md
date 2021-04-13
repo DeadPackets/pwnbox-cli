@@ -1,3 +1,4 @@
-# PwnBox CLI - v1.1.2
+# PwnBox CLI - v1.1.3
 
-* Fixed a mistake **AGAIN** in the Github Action resulting in failed builds.
+* Fixed UnboundLocalError in `pwnbox generate`
+* Resolved extra 'v' in version banner
