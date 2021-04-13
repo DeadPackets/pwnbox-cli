@@ -16,7 +16,7 @@ from rich.progress import BarColumn, Progress
 from ssh_wait import ssh_wait
 
 # Global Vars
-VERSION = "1.0.0"
+VERSION = "v1.1.2"
 DEFAULT_CONFIG_CREATED = False
 console = Console()
 
