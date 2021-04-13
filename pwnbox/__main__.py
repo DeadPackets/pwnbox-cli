@@ -5,6 +5,7 @@ import math
 import os
 from sys import exit as ex
 from sys import platform
+from pathlib import Path
 
 import docker
 import requests
@@ -16,6 +17,7 @@ from ssh_wait import ssh_wait
 
 # Global Vars
 VERSION = "1.0.0"
+DEFAULT_CONFIG_CREATED = False
 console = Console()
 
 # Bytes to Human Readable
@@ -93,6 +95,8 @@ def main():
 			exit(1)
 	elif args.config == f"{os.getenv('HOME')}/.pwnbox/pwnbox.conf":
 		print(f'[cyan]=> Creating default config at {args.config}')
+		DEFAULT_CONFIG_CREATED = True
+		Path(args.config).parent.mkdir(exist_ok=True)
 		f = open(f'{os.path.dirname(__file__)}/pwnbox.conf', 'r').read()
 		open(args.config, 'w').write(f)
 		config.read(args.config)
@@ -168,6 +172,7 @@ def main():
 							os.system('xhost +local:root >/dev/null 2>/dev/null')
 						else:
 							os.system('xhost +localhost >/dev/null 2>/dev/null')
+					print('[blue]=> X11 remote access enabled.[/blue]')
 
 				# Forward ports
 				forwarded_ports = {}
@@ -244,7 +249,7 @@ def main():
 					os.system('xhost -local:root >/dev/null 2>/dev/null')
 				else:
 					os.system('xhost -localhost >/dev/null 2>/dev/null')
-			print('[blue]=> Disabled X11 remote access.[/blue]')
+			print('[green]=> Disabled X11 remote access.[/green]')
 			verbose_print(f'[cyan]=> Bringing down container with ID: {pwnbox_container.short_id}[/cyan]')
 			print('[blue]=> Stopping PwnBox container...[/blue]')
 			pwnbox_container.kill()
@@ -281,6 +286,8 @@ def main():
 		print('[green]=> PwnBox image updated successfully!')
 		exit(0)
 	elif args.command == 'generate':
+		if DEFAULT_CONFIG_CREATED:
+			exit(0)
 		if not os.path.isfile(args.config):
 			f = open(f'{os.path.dirname(__file__)}/pwnbox.conf', 'r').read()
 			open(args.config, 'w').write(f)

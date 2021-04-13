@@ -20,6 +20,7 @@ setuptools.setup(
 	author_email='deadpackets@protonmail.com',
 	description='The CLI tool that lets you easily deploy, customize and manage PwnBox containers.',
 	long_description=README,
+	long_description_content_type='text/markdown',
 	entry_points='''
 		[console_scripts]
 		pwnbox=pwnbox.__main__:main
