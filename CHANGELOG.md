@@ -1,3 +1,3 @@
-# PwnBox CLI - v1.1.1
+# PwnBox CLI - v1.1.2
 
-* Fixed a mistake in the Github Action resulting in failed builds.
+* Fixed a mistake **AGAIN** in the Github Action resulting in failed builds.

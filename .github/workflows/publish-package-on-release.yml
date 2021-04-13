@@ -31,8 +31,8 @@ jobs:
         name: Update version info
         run: |
           echo "${{ steps.currentTag.outputs.tag }}" > VERSION.txt
-          sed 's/.*VERSION = ".*/VERSION = "${{ steps.currentTag.outputs.tag }}"/g' pwnbox/__main__.py
-          sed 's/.*VERSION = ".*/VERSION = "${{ steps.currentTag.outputs.tag }}"/g' setup.py
+          sed -i 's/.*VERSION = ".*/VERSION = "${{ steps.currentTag.outputs.tag }}"/g' pwnbox/__main__.py
+          sed -i 's/.*VERSION = ".*/VERSION = "${{ steps.currentTag.outputs.tag }}"/g' setup.py
       -
         name: Build python package
         run: |
