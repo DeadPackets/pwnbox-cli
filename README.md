@@ -24,7 +24,7 @@ The CLI tool that lets you easily deploy, customize and manage PwnBox.
 Using Python >= 3.6, you can install this CLI using pip directly:
 
 ```bash
-pip install pwntools
+pip install pwnbox
 ```
 
 And that's it! You're all set to use PwnBox CLI!
