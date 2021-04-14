@@ -46,7 +46,7 @@ def main():
 	# Main arguments
 	parser.add_argument('command', metavar='COMMAND', help='The action to perform.', choices=['up', 'down', 'pull', 'generate'])
 	parser.add_argument('-v', '--verbose', help='Enable verbose output.', action='store_true')
-	parser.add_argument('--version', help='Print the current version of the program.', action='version', version=f'v{VERSION}')	
+	parser.add_argument('--version', help='Print the current version of the program.', action='version', version=f'{VERSION}')	
 	parser.add_argument('-b', '--no-banner', help='Disable printing the banner.', action='store_true')
 	parser.add_argument('-n', '--no-update', help='Disable the automatic check for newer PwnBox versions.', action='store_true')
 	parser.add_argument('-c', '--config', help='Specify the path to a PwnBox config file.', default=f"{os.getenv('HOME')}/.pwnbox/pwnbox.conf")
