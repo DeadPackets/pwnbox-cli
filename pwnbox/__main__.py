@@ -32,7 +32,6 @@ def byte_to_human_read(byte):
 
 # Main function
 def main():
-	DEFAULT_CONFIG_CREATED = False
 	# Initialize ArgParser
 	class NoAction(argparse.Action):
 		def __init__(self, **kwargs):
@@ -87,22 +86,22 @@ def main():
 	# Attempt to read the config file
 	config = configparser.ConfigParser()
 	args.config = os.path.expandvars(args.config)
-	if os.path.isfile(args.config):
-		try:
+	if args.command != 'generate':
+		if os.path.isfile(args.config):
+			try:
+				config.read(args.config)
+			except configparser.Error:
+				print('[red]=> Error: Cannot read or parse config file!')
+				exit(1)
+		elif args.config == f"{os.getenv('HOME')}/.pwnbox/pwnbox.conf":
+			print(f'[cyan]=> Creating default config at {args.config}')
+			Path(args.config).parent.mkdir(exist_ok=True)
+			f = open(f'{os.path.dirname(__file__)}/pwnbox.conf', 'r').read()
+			open(args.config, 'w').write(f)
 			config.read(args.config)
-		except configparser.Error:
-			print('[red]=> Error: Cannot read or parse config file!')
+		else:
+			print(f'[red]=> Error: "{args.config}" does not exist![/red]')
 			exit(1)
-	elif args.config == f"{os.getenv('HOME')}/.pwnbox/pwnbox.conf":
-		print(f'[cyan]=> Creating default config at {args.config}')
-		DEFAULT_CONFIG_CREATED = True
-		Path(args.config).parent.mkdir(exist_ok=True)
-		f = open(f'{os.path.dirname(__file__)}/pwnbox.conf', 'r').read()
-		open(args.config, 'w').write(f)
-		config.read(args.config)
-	else:
-		print(f'[red]=> Error: "{args.config}" does not exist![/red]')
-		exit(1)
 
 	# Check if a newer version has been released
 	if not args.no_update:
@@ -297,8 +296,6 @@ def main():
 		print('[green]=> PwnBox image pulled/updated successfully!')
 		exit(0)
 	elif args.command == 'generate':
-		if DEFAULT_CONFIG_CREATED:
-			exit(0)
 		if not os.path.isfile(args.config):
 			f = open(f'{os.path.dirname(__file__)}/pwnbox.conf', 'r').read()
 			open(args.config, 'w').write(f)
