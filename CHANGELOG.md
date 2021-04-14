@@ -1,4 +1,3 @@
-# PwnBox CLI - v1.1.3
+# PwnBox CLI - v1.2.0
 
-* Fixed UnboundLocalError in `pwnbox generate`
-* Resolved extra 'v' in version banner
+* Added progress bars to `pwnbox pull` command!

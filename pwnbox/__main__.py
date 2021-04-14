@@ -274,16 +274,27 @@ def main():
 			else:
 				print('[blue]=> A newer version of PwnBox has been found![/blue]')
 		except docker.errors.ImageNotFound:
-			print('[yellow]=> PwnBox image not locally downloaded![/yellow]')
+			print('[yellow]=> PwnBox image not found locally, pulling image...[/yellow]')
 		except docker.errors.APIError:
 			print('[red]=> There was an error contacting the Docker API.[/red]')
 			exit(1)
 
 		# Download the latest image
-		with console.status('[cyan]=> Pulling latest PwnBox image...[/cyan]', spinner='dots'):
-			client.images.pull(f"{config['IMAGE']['DOCKER_REPOSITORY']}/deadpackets/pwnbox", tag=config['IMAGE']['IMAGE_TAG'])
-
-		print('[green]=> PwnBox image updated successfully!')
+		pull_progress = client.api.pull(f"{config['IMAGE']['DOCKER_REPOSITORY']}/deadpackets/pwnbox", tag=config['IMAGE']['IMAGE_TAG'], stream=True, decode=True)
+		with Progress("[progress.description]{task.description}",BarColumn(),"[progress.percentage]{task.percentage:>3.0f}%") as progress:
+			tasks = {}
+			for s in pull_progress:
+				if 'progressDetail' in s:
+					if s['progressDetail'] != {}:
+						if s['id'] in tasks:
+							progress.update(tasks[s['id']]['rich_task'], advance=(s['progressDetail']['current'] - tasks[s['id']]['progress']['current']))
+							tasks[s['id']]['progress'] = s['progressDetail']
+						else:
+							tasks[s['id']] = {}
+							tasks[s['id']]['progress'] = s['progressDetail']
+							tasks[s['id']]['rich_task'] = progress.add_task(f"Downloading layer {s['id']} [{byte_to_human_read(s['progressDetail']['total'])}]", total=s['progressDetail']['total'])
+							progress.update(tasks[s['id']]['rich_task'], advance=s['progressDetail']['current'])
+		print('[green]=> PwnBox image pulled/updated successfully!')
 		exit(0)
 	elif args.command == 'generate':
 		if DEFAULT_CONFIG_CREATED:
