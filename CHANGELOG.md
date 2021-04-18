@@ -1,3 +1,3 @@
-# PwnBox CLI - v1.2.2
+# PwnBox CLI - v1.2.3
 
-* Fixed extra 'v' printed when supplied `--version`
+* Fixed spelling mistake in `pwnbox.conf` resulting in lack of external mount.
