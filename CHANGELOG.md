@@ -1,3 +1,3 @@
-# PwnBox CLI - v1.3.0
+# PwnBox CLI - v1.4.0
 
-* Added DNS option in the conf file, defaulting to cloudflare DNS.
+* Added improved progress output and tracking when downloading images using `pwnbox up`.

@@ -150,12 +150,15 @@ def main():
 						if 'progressDetail' in s:
 							if s['progressDetail'] != {}:
 								if s['id'] in tasks:
-									progress.update(tasks[s['id']]['rich_task'], advance=(s['progressDetail']['current'] - tasks[s['id']]['progress']['current']))
-									tasks[s['id']]['progress'] = s['progressDetail']
+									if s['progressDetail']['current'] == s['progressDetail']['total']:
+										progress.update(tasks[s['id']]['rich_task'], description=f"[dim green]Downloaded layer {s['id']} [bold][{byte_to_human_read(s['progressDetail']['total'])}][/bold][/dim green]", advance=(s['progressDetail']['current'] - tasks[s['id']]['progress']['current']))
+									else:
+										progress.update(tasks[s['id']]['rich_task'], description=f"[dim {'blue' if s['status'] == 'Downloading' else 'cyan'}]{s['status']} layer {s['id']} [bold][{byte_to_human_read(s['progressDetail']['total'])}][/bold][/dim {'blue' if s['status'] == 'Downloading' else 'cyan'}]", advance=(s['progressDetail']['current'] - tasks[s['id']]['progress']['current']))
+										tasks[s['id']]['progress'] = s['progressDetail']
 								else:
 									tasks[s['id']] = {}
 									tasks[s['id']]['progress'] = s['progressDetail']
-									tasks[s['id']]['rich_task'] = progress.add_task(f"Downloading layer {s['id']} [{byte_to_human_read(s['progressDetail']['total'])}]", total=s['progressDetail']['total'])
+									tasks[s['id']]['rich_task'] = progress.add_task(f"[dim blue]{s['status']} layer {s['id']} [bold][{byte_to_human_read(s['progressDetail']['total'])}][/bold][/dim blue]", total=s['progressDetail']['total'])
 									progress.update(tasks[s['id']]['rich_task'], advance=s['progressDetail']['current'])
 				print('[green]=> PwnBox image downloaded successfully![/green]')
 
