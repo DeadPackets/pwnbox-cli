@@ -1,3 +1,3 @@
-# PwnBox CLI - v1.2.3
+# PwnBox CLI - v1.3.0
 
-* Fixed spelling mistake in `pwnbox.conf` resulting in lack of external mount.
+* Added DNS option in the conf file, defaulting to cloudflare DNS.

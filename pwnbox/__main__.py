@@ -213,6 +213,7 @@ def main():
 					container_image,
 					auto_remove=bool(config['CONTAINER']['AUTO_REMOVE']),
 					detach=True,
+					dns=config['CONTAINER']['DNS_SERVERS'].split(','),
 					environment=env_vars,
 					hostname=config['CONTAINER']['HOSTNAME'],
 					ports=forwarded_ports,
