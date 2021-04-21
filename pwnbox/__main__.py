@@ -215,6 +215,7 @@ def main():
 				container_id = client.containers.run(
 					container_image,
 					auto_remove=bool(config['CONTAINER']['AUTO_REMOVE']),
+					extra_hosts={'host.docker.internal':'192.168.65.2'}, #FIXME: Docker needs to add a way to get host address reliably first.
 					detach=True,
 					dns=config['CONTAINER']['DNS_SERVERS'].split(','),
 					environment=env_vars,

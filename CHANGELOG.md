@@ -1,3 +1,3 @@
-# PwnBox CLI - v1.4.2
+# PwnBox CLI - v1.4.3
 
-* Added a temporary hardcoded sleep till I figure out how to account for falsely available SSH.
+* Added an `--add-host` command to map `host.docker.internal` to the docker host IP for X11 forwarding to work.
