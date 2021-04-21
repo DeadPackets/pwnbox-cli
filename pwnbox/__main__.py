@@ -138,8 +138,7 @@ def main():
 				if not args.no_update:
 					with console.status('[cyan]=> Checking for newer PwnBox images...[/cyan]', spinner='dots'):
 						registry_data = client.images.get_registry_data(f"{config['IMAGE']['DOCKER_REPOSITORY']}/deadpackets/pwnbox:{config['IMAGE']['IMAGE_TAG']}")
-
-					if local_image.short_id != registry_data.short_id:
+					if local_image.attrs['RepoDigests'][0].split('@')[1] != registry_data.id:
 						print('[yellow]=> A newer version of the PwnBox container is available! Run "pwnbox pull" to update.[/yellow]')
 			except docker.errors.ImageNotFound:
 				print('[yellow]=> PwnBox image not found locally, pulling image...[/yellow]')
@@ -271,7 +270,7 @@ def main():
 			with console.status('[cyan]=> Checking for newer PwnBox images...[/cyan]', spinner='dots'):
 				registry_data = client.images.get_registry_data(f"{config['IMAGE']['DOCKER_REPOSITORY']}/deadpackets/pwnbox:{config['IMAGE']['IMAGE_TAG']}")
 
-			if local_image.short_id == registry_data.short_id:
+			if local_image.attrs['RepoDigests'][0].split('@')[1] == registry_data.id:
 				print('[green]=> Already updated to latest version![/green]')
 				exit(0)
 			else:
