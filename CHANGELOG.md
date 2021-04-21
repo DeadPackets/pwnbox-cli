@@ -1,3 +1,3 @@
-# PwnBox CLI - v1.4.1
+# PwnBox CLI - v1.4.2
 
-* Patched a bug where I was incorrectly comparing image digests to repo digests.
+* Added a temporary hardcoded sleep till I figure out how to account for falsely available SSH.

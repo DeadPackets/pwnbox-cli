@@ -3,9 +3,10 @@ import argparse
 import configparser
 import math
 import os
+from pathlib import Path
 from sys import exit as ex
 from sys import platform
-from pathlib import Path
+from time import sleep
 
 import docker
 import requests
@@ -234,6 +235,7 @@ def main():
 
 		# Wait for SSH
 		with console.status('[blue]=> Waiting for SSH to be available...[/blue]', spinner='dots'):
+			sleep(1) # FIXME: Figure out a better way than hardcoded sleep
 			ssh_result = ssh_wait('127.0.0.1', service=2222, wait_limit=args.timeout*10, log_fn=None)
 		if ssh_result == 0:
 			# SSH into the container
