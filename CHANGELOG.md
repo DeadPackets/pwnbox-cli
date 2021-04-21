@@ -1,3 +1,3 @@
-# PwnBox CLI - v1.4.0
+# PwnBox CLI - v1.4.1
 
-* Added improved progress output and tracking when downloading images using `pwnbox up`.
+* Patched a bug where I was incorrectly comparing image digests to repo digests.
