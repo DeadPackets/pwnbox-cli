@@ -1,3 +1,5 @@
-# PwnBox CLI - v1.4.4
+# PwnBox CLI - v1.5.0
 
-* Improved `pull` output.
+* Fixed an issue where a lack of docker installation was not detected.
+* Added `.pylintrc` to start linting the code.
+* Fixed a bunch of issues spotted by `pylint`.
