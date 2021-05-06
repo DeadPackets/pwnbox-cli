@@ -3,7 +3,7 @@ from os import path
 import pathlib
 
 # GLOBALS
-VERSION = "v1.4.4"
+VERSION = "v1.5.0"
 HERE = pathlib.Path(__file__).parent
 README = open(f'{HERE}/README.md', 'r').read()
 with open(path.join(HERE, 'requirements.txt'), encoding='utf-8') as f:
