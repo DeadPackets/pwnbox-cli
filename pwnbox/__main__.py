@@ -125,6 +125,9 @@ def main():
 	if args.command == 'up':
 		# Check if the container is running
 		try:
+			if client.containers is None:
+				pprint('[red]=> Error: Could not connect to Docker. Check if you have Docker installed and running.[/red]')
+				sys_exit(1)
 			pwnbox_container = client.containers.get(config['CONTAINER']['NAME'])
 			pprint('[blue]=> PwnBox container already running! Logging in...[/blue]')
 		except docker.errors.NotFound:
