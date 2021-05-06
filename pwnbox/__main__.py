@@ -116,8 +116,9 @@ def main():
 	# Test if we have access to docker
 	try:
 		client = docker.from_env()
-	except docker.errors.DockerException:
-		print('[red]=> Error: Could not connect to Docker. Check if Docker is running with proper permissions.[/red]')
+		client.ping()
+	except (docker.errors.DockerException, docker.errors.APIError):
+		print('[red]=> Error: Could not connect to Docker. Check if you have Docker installed and running.[/red]')
 		exit(1)
 
 	# If the command is "UP"
