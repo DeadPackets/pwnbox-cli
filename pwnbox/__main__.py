@@ -228,7 +228,7 @@ def main():
 					dns=config['CONTAINER']['DNS_SERVERS'].split(','),
 					environment=env_vars,
 					hostname=config['CONTAINER']['HOSTNAME'],
-					ports=forwarded_ports,
+					ports=forwarded_ports if not bool(config['CONTAINER']['HOST_NETWORKING']) else {},
 					privileged=bool(config['CONTAINER']['PRIVILEGED']),
 					remove=bool(config['CONTAINER']['AUTO_REMOVE']),
 					name=config['CONTAINER']['NAME'],
