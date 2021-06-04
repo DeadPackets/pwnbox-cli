@@ -1,3 +1,5 @@
-# PwnBox CLI - v1.5.1
+# PwnBox CLI - v1.5.2
 
-* Fixed an additional issue where a lack of docker installation was not detected.
+* Fixed an issue where enabling host networking would result in an exception (Credits to @shizonic)
+* Fixed an issue with incorrect dependencies for `docker` resulting in exceptions (Credits to @shizonic)
+
