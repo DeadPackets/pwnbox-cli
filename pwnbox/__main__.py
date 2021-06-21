@@ -174,7 +174,7 @@ def main():
 			try:
 				# Prepare environment variables
 				env_vars = {}
-				if bool(config['CONTAINER']['X11_FORWARDING']):
+				if config['CONTAINER']['X11_FORWARDING'].lower() == 'true':
 					is_linux = platform in ('linux', 'linux2')
 					env_vars['DISPLAY'] = os.getenv('DISPLAY') if is_linux else 'host.docker.internal:0'
 					with console.status('[cyan]=> Allowing X11 remote access...[/cyan]'):
@@ -222,17 +222,17 @@ def main():
 
 				container_id = client.containers.run(
 					container_image,
-					auto_remove=bool(config['CONTAINER']['AUTO_REMOVE']),
+					auto_remove=config['CONTAINER']['AUTO_REMOVE'].lower() == 'true',
 					extra_hosts={'host.docker.internal':'192.168.65.2'}, #NOTE: Docker needs to add a way to get host address reliably first.
 					detach=True,
 					dns=config['CONTAINER']['DNS_SERVERS'].split(','),
 					environment=env_vars,
 					hostname=config['CONTAINER']['HOSTNAME'],
-					ports=forwarded_ports if not bool(config['CONTAINER']['HOST_NETWORKING']) else {},
-					privileged=bool(config['CONTAINER']['PRIVILEGED']),
-					remove=bool(config['CONTAINER']['AUTO_REMOVE']),
+					ports=forwarded_ports if not config['CONTAINER']['HOST_NETWORKING'].lower() == 'true' else {},
+					privileged=config['CONTAINER']['PRIVILEGED'].lower() == 'true',
+					remove=config['CONTAINER']['AUTO_REMOVE'].lower() == 'true',
 					name=config['CONTAINER']['NAME'],
-					network_mode='host' if (bool(config['CONTAINER']['HOST_NETWORKING']) and is_linux) else 'bridge',
+					network_mode='host' if (config['CONTAINER']['HOST_NETWORKING'].lower() == 'true' and is_linux) else 'bridge',
 					volumes=volume_config
 				)
 
