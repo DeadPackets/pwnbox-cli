@@ -3,7 +3,6 @@ import argparse
 import configparser
 import math
 import os
-from pathlib import Path
 from sys import exit as sys_exit
 from sys import platform
 from time import sleep
@@ -96,7 +95,7 @@ def main():
 				sys_exit(1)
 		elif args.config == f"{os.getenv('HOME')}/.pwnbox/pwnbox.conf":
 			pprint(f'[cyan]=> Creating default config at {args.config}')
-			Path(args.config).parent.mkdir(exist_ok=True)
+			os.makedirs(os.path.dirname(args.config), exist_ok=True)
 			conf_file = open(f'{os.path.dirname(__file__)}/pwnbox.conf', 'r').read()
 			open(args.config, 'w').write(conf_file)
 			config.read(args.config)
@@ -319,6 +318,7 @@ def main():
 	elif args.command == 'generate':
 		if not os.path.isfile(args.config):
 			conf_file = open(f'{os.path.dirname(__file__)}/pwnbox.conf', 'r').read()
+			os.makedirs(os.path.dirname(args.config), exist_ok=True)
 			open(args.config, 'w').write(conf_file)
 			pprint(f'[green]=> Generated a default config file at "{args.config}"!')
 			sys_exit(0)
