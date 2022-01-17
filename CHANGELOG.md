@@ -1,3 +1,5 @@
-# PwnBox CLI - v1.5.3
+# PwnBox CLI - v2.0.0
 
-* Fixed a bug where the config directory wasn't being created if it did not already exist.
+* Added proper X11 forwarding when connecting to pwnbox
+* Removed setting environment variables for DISPLAY
+* Optimized and reformatted the code

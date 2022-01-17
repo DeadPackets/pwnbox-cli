@@ -1,0 +1,7 @@
+[flake8]
+max-line-length = 190
+extend-ignore = S101,E203,S105,S413,PIE786,JS101,D,JS102,PLR0914
+exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,.venv,frontend,images,.github,node_modules,backend/sensitivity_analyzer/trial2.py,backend/gunicorn_conf.py
+spellcheck-targets=comments
+dictionaries=en_US,python,technical
+docstring-convention=google
