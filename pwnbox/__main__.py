@@ -98,6 +98,12 @@ def main() -> None:
 		type=int,
 		default=10,
 	)
+	parser.add_argument(
+		"-s",
+		"--no-ssh",
+		help="Do not SSH into the container after bringing it up.",
+		action="store_true"
+	)
 
 	# Possible commands
 	group = parser.add_argument_group(title="Commands")
@@ -382,6 +388,9 @@ def main() -> None:
 				"127.0.0.1", service=2222, wait_limit=args.timeout * 10, log_fn=None
 			)
 		if ssh_result == 0:
+			if args.no_ssh:
+				pprint("[green]=> PwnBox launched successfully!")
+				sys_exit(0)
 			# SSH into the container
 			pprint("[green]=> SSH available! Logging in...[/green]")
 			os.execlp("ssh", "-oStrictHostKeyChecking=no", "-X", "root@127.0.0.1", "-p 2222")
