@@ -17,7 +17,7 @@ from rich.progress import BarColumn, Progress
 from ssh_wait import ssh_wait
 
 # Global Vars
-VERSION = "v2.0.0"
+VERSION = "v2.1.0"
 console = Console()
 
 
