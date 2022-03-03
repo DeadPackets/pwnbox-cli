@@ -1,3 +1,3 @@
-# PwnBox CLI - v2.1.0
+# PwnBox CLI - v2.1.1
 
-* Added `--no-ssh` option to `pwnbox up` to just exit after initializing the container.
+* Fixed an issue with mounting the SSH volume as read-only.
