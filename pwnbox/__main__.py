@@ -333,7 +333,7 @@ def main() -> None:
 					},
 					os.path.expandvars(config["CONTAINER"]["SSH_VOLUME"]): {
 						"bind": "/opt/ssh",
-						"mode": "ro",
+						"mode": "rw",
 					},
 				}
 
