@@ -1,3 +1,3 @@
-# PwnBox CLI - v2.1.1
+# PwnBox CLI - v2.2.0
 
-* Fixed an issue with mounting the SSH volume as read-only.
+* Updated the dependencies to fix a warning that appeared, and to improve performance.
