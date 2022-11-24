@@ -60,7 +60,7 @@ def main() -> None:
         "command",
         metavar="COMMAND",
         help="The action to perform.",
-        choices=["up", "down", "pull", "generate"],
+        choices=["up", "down", "pull", "generate", "start", "stop"],
     )
     parser.add_argument(
         "-v",
@@ -284,7 +284,7 @@ def main() -> None:
                 pprint("[green]=> PwnBox image downloaded successfully![/green]")
 
             # Check if SSH keys exist and raise an error if they dont
-            ssh_keys_path = os.path.expandvars(config["SSH"]["SSH_KEY_PATH"])
+            ssh_keys_path = os.path.expandvars(config["CONTAINER"]["SSH_VOLUME"])
             if not os.path.exists(ssh_keys_path):
                 # Check if any files ending with .pub exist in ssh_keys_path
                 if len(glob.glob(f"{ssh_keys_path}/*.pub")) == 0:
